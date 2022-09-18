@@ -94,6 +94,7 @@ export const UpdateVendorService = async (
    }
    return res.json({ message: "Vendor information is not found" });
 };
+
 export const UpdateVendorCoverImage = async (
    req: Request,
    res: Response,

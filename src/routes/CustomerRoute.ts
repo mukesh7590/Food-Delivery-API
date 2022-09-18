@@ -16,30 +16,30 @@ import {
    VerifyOffer,
 } from "../controllers";
 import { Authenticate } from "../middlewares";
-// import { Offer } from "../models/Offer";
 
 const router = express.Router();
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
+   res.json({ message: "hello customer" });
+});
 
-// uers part is  here
-
-/* ------------------- Suignup / Create Customer --------------------- */
+router.get("/createorder", CreateOrder);
 router.post("/signup", CustomerSignUp);
-
-/* ------------------- Login --------------------- */
 router.post("/login", CustomerLogin);
 
 /* ------------------- Authentication Need here below--------------------- */
 router.use(Authenticate);
 
-/* ------------------- Verify Customer Account --------------------- */
 router.patch("/verify", CustomerVerify);
-
-/* ------------------- OTP / request OTP --------------------- */
 router.get("/otp", RequestOtp);
 
 /* ------------------- Profile --------------------- */
 router.get("/profile", GetCustomerProfile);
 router.patch("/profile", EditCustomerProfile);
+
+//Order
+// router.get("/createorder", CreateOrder);
+router.get("/orders", GetOrders);
+router.get("/order/:id", GetOrderById);
 
 //Cart
 router.post("/cart", AddToCart);
@@ -51,10 +51,5 @@ router.get("/offer/verify/:id", VerifyOffer);
 
 //Payment
 router.post("/create-payment", CreatePayment);
-
-//Order
-router.post("/create-order", CreateOrder);
-router.get("/orders", GetOrders);
-router.get("/order/:id", GetOrderById);
 
 export { router as CustomerRoute };

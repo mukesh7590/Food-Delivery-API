@@ -15,6 +15,7 @@ export const Authenticate = async (
    res: Response,
    next: NextFunction
 ) => {
+   // await console.log("sdfsfasfasfasfadsfasfas")
    const signature = await ValidateSignature(req);
    if (signature) {
       return next();

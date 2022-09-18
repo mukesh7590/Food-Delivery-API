@@ -8,7 +8,7 @@ router.get("/vendor", GetVendors);
 router.get("/vendor/:id", GetVendorByID);
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
-   res.json({ message: "hello admin" });
+   res.json({ message: "hello admin hfghdfhfdhf gaand maraao" });
 });
 
 export { router as AdminRoute };

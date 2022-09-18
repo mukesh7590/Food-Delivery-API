@@ -10,13 +10,6 @@ export class CreateCustomerInput {
    @Length(6, 12)
    password: string;
 }
-
-export interface CustomerPayload {
-   _id: string;
-   email: string;
-   verified: boolean;
-}
-
 export class CustomerLoginInputs {
    @IsEmail()
    email: string;
@@ -34,4 +27,14 @@ export class EditCustomerProfileInput {
 
    @Length(6, 16)
    address: string;
+}
+export interface CustomerPayload {
+   _id: string;
+   email: string;
+   verified: boolean;
+}
+
+export class OrderInputs {
+   _id: string;
+   unit: number;
 }

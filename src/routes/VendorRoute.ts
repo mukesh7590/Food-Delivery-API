@@ -7,6 +7,9 @@ import {
    AddFood,
    GetFoods,
    UpdateVendorCoverImage,
+   GetCurrentOrders,
+   GetOrderDetails,
+   ProcessOrder,
 } from "../controllers";
 
 import multer from "multer";
@@ -38,6 +41,12 @@ router.patch("/service", UpdateVendorService);
 
 router.post("/food", images, AddFood);
 router.get("/foods", GetFoods);
+
+// Orders section
+
+router.get("/orders", GetCurrentOrders);
+router.put("/order/:id/process", ProcessOrder);
+router.get("/order/:id", GetOrderDetails);
 
 // router.get("/", (req: Request, res: Response, next: NextFunction) => {
 //    res.json({ message: "hello Vandor" });

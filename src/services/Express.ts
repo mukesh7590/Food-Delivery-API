@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-
+// import '../images'
 import path from "path";
 
 import {
@@ -13,8 +13,11 @@ export default async (app: Application) => {
    app.use(express.json());
    app.use(express.urlencoded({ extended: true }));
 
-   const imagePath = path.join(__dirname, "images");
+   const imagePath = path.join(__dirname, "../images");
+   
    app.use("/images", express.static(imagePath));
+   
+   console.log(imagePath);
 
    app.use("/admin", AdminRoute);
    app.use("/vendor", VendorRoute);

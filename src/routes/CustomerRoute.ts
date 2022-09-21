@@ -22,7 +22,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
    res.json({ message: "hello customer" });
 });
 
-router.get("/createorder", CreateOrder);
+
 router.post("/signup", CustomerSignUp);
 router.post("/login", CustomerLogin);
 
@@ -37,7 +37,7 @@ router.get("/profile", GetCustomerProfile);
 router.patch("/profile", EditCustomerProfile);
 
 //Order
-// router.get("/createorder", CreateOrder);
+router.post("/create-order", CreateOrder);
 router.get("/orders", GetOrders);
 router.get("/order/:id", GetOrderById);
 

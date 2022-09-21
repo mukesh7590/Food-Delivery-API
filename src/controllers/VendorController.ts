@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { EditVendorInputs, VendorLoginInput } from "../dto";
 import { CreateFoodInputs } from "../dto";
-import { Food } from "../models";
+import { Food, Order } from "../models";
 import { GenerateSignature, ValidatePassword } from "../utility";
 import { FindVendor } from "./AdminController";
 
@@ -172,4 +172,67 @@ export const GetFoods = async (
       }
    }
    return res.json({ message: "Food information not found" });
+};
+
+export const GetCurrentOrders = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const user = req.user;
+   if (user) {
+      const orders = await Order.find({ vendorId: user._id }).populate(
+         "items.food"
+      );
+      if (orders != null) {
+         return res.status(200).json(orders);
+      }
+   }
+   return res.json({ message: "Orders Not found" });
+};
+
+export const GetOrderDetails = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const orderId = req.params.id;
+
+   if (orderId) {
+      const order = await Order.findById(orderId).populate("items.food");
+
+      if (order != null) {
+         return res.status(200).json(order);
+      }
+   }
+
+   return res.json({ message: "Order Not found" });
+};
+
+export const ProcessOrder = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const orderId = req.params.id;
+
+   const { status, remarks, time } = req.body;
+
+   if (orderId) {
+      const order = await Order.findById(orderId).populate("items.food");
+
+      order.orderStatus = status;
+      order.remarks = remarks;
+      if (time) {
+         order.readyTime = time;
+      }
+
+      const orderResult = await order.save();
+
+      if (orderResult != null) {
+         return res.status(200).json(orderResult);
+      }
+   }
+
+   return res.json({ message: "Unable to process order" });
 };

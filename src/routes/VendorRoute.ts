@@ -10,6 +10,9 @@ import {
    GetCurrentOrders,
    GetOrderDetails,
    ProcessOrder,
+   GetOffers,
+   AddOffer,
+   EditOffer,
 } from "../controllers";
 
 import multer from "multer";
@@ -43,10 +46,14 @@ router.post("/food", images, AddFood);
 router.get("/foods", GetFoods);
 
 // Orders section
-
 router.get("/orders", GetCurrentOrders);
 router.put("/order/:id/process", ProcessOrder);
 router.get("/order/:id", GetOrderDetails);
+
+//Offers Section
+router.get("/offers", GetOffers);
+router.post("/offer", AddOffer);
+router.put("/offer/:id", EditOffer);
 
 // router.get("/", (req: Request, res: Response, next: NextFunction) => {
 //    res.json({ message: "hello Vandor" });

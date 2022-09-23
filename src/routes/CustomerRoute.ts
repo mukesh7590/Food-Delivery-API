@@ -22,29 +22,34 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
    res.json({ message: "hello customer" });
 });
 
-
+/* ------------------- Suignup / Login Customer --------------------- */
 router.post("/signup", CustomerSignUp);
 router.post("/login", CustomerLogin);
 
 /* ------------------- Authentication Need here below--------------------- */
 router.use(Authenticate);
 
+/* ------------------- Verify Customer Account --------------------- */
 router.patch("/verify", CustomerVerify);
+
+/* ------------------- OTP / request OTP --------------------- */
 router.get("/otp", RequestOtp);
 
 /* ------------------- Profile --------------------- */
 router.get("/profile", GetCustomerProfile);
 router.patch("/profile", EditCustomerProfile);
 
-//Order
-router.post("/create-order", CreateOrder);
-router.get("/orders", GetOrders);
-router.get("/order/:id", GetOrderById);
 
 //Cart
 router.post("/cart", AddToCart);
 router.get("/cart", GetCart);
 router.delete("/cart", DeleteCart);
+
+//Order
+router.post("/create-order", CreateOrder);
+router.get("/orders", GetOrders);
+router.get("/order/:id", GetOrderById);
+
 
 //Apply Offers
 router.get("/offer/verify/:id", VerifyOffer);

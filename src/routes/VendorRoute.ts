@@ -33,6 +33,8 @@ const imageStorage = multer.diskStorage({
 
 const images = multer({ storage: imageStorage }).array("images", 10);
 
+// Login route by Admin
+
 router.post("/login", VendorLogin);
 
 router.use(Authenticate); // this always execute before the 3 lines given below

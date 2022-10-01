@@ -12,7 +12,7 @@ import {
 const router = exprss.Router();
 
 router.post("/vendor", CreateVendor);
-router.get("/vendor", GetVendors);
+router.get("/vendors", GetVendors);
 router.get("/vendor/:id", GetVendorByID);
 
 router.get("/transactions", GetTransactions);

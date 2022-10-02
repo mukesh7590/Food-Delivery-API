@@ -125,13 +125,12 @@ export const UpdateVendorCoverImage = async (
    return res.json({ message: "Unable to Update vendor profile " });
 };
 
-
-
 export const AddFood = async (
    req: Request,
    res: Response,
    next: NextFunction
 ) => {
+   
    const user = req.user;
    if (user) {
       const { name, description, category, foodType, readyTime, price } = <
@@ -142,7 +141,11 @@ export const AddFood = async (
 
       if (vendor !== null) {
          const files = req.files as [Express.Multer.File];
+
          const images = files.map((file: Express.Multer.File) => file.filename);
+
+         console.log("files aayi hai vendor controller=>", files);
+         console.log("images  aayi hai vendor controller=>", images);
 
          const createdFood = await Food.create({
             vendorId: vendor._id,

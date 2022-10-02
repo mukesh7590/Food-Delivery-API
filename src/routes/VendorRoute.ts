@@ -14,6 +14,7 @@ import {
    AddOffer,
    EditOffer,
 } from "../controllers";
+import path from "path";
 
 import multer from "multer";
 import { VendorLoginInput } from "../dto";
@@ -24,15 +25,19 @@ const router = exprss.Router();
 
 const imageStorage = multer.diskStorage({
    destination: function (req, file, cb) {
-      cb(null, "images");
+      cb(null, path.join(__dirname, '../images/'));
    },
    filename: function (req, file, cb) {
       cb(null, new Date().toISOString() + "_" + file.originalname);
    },
 });
 
-const images = multer({ storage: imageStorage }).array("images", 10);
 
+console.log("imageStorage => ", imageStorage);
+
+const images = multer({ storage: imageStorage }).array("images", 3);
+
+console.log("images aaye hai =>", images);
 // Login route by Admin
 
 router.post("/login", VendorLogin);

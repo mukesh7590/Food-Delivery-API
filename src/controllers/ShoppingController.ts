@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { FoodDoc, Vendor, Offer } from "../models";
 
+// correct
 export const GetFoodAvailability = async (
    req: Request,
    res: Response,
@@ -9,7 +10,7 @@ export const GetFoodAvailability = async (
    const pincode = req.params.pincode;
    const result = await Vendor.find({
       pincode: pincode,
-      serviceAvailable: false,
+      serviceAvailable: true,
    })
       .sort({ rating: -1 })
       .populate("foods");
@@ -20,6 +21,7 @@ export const GetFoodAvailability = async (
    return res.status(404).json({ msg: "data Not found!" });
 };
 
+// correct
 export const GetTopRestaurants = async (
    req: Request,
    res: Response,
@@ -28,10 +30,10 @@ export const GetTopRestaurants = async (
    const pincode = req.params.pincode;
    const result = await Vendor.find({
       pincode: pincode,
-      serviceAvailable: false,
+      serviceAvailable: true,
    })
       .sort({ rating: -1 })
-      .limit(1);
+      .limit(10);
    if (result.length > 0) {
       return res.status(200).json(result);
    }
@@ -39,6 +41,7 @@ export const GetTopRestaurants = async (
    return res.status(404).json({ msg: "data Not found!" });
 };
 
+// correct
 export const GetFoodsIn30Min = async (
    req: Request,
    res: Response,
@@ -47,7 +50,7 @@ export const GetFoodsIn30Min = async (
    const pincode = req.params.pincode;
    const result = await Vendor.find({
       pincode: pincode,
-      serviceAvailable: false,
+      serviceAvailable: true,
    }).populate("foods");
 
    if (result.length > 0) {
@@ -64,6 +67,7 @@ export const GetFoodsIn30Min = async (
    return res.status(404).json({ msg: "data Not found!" });
 };
 
+// correct
 export const SearchFoods = async (
    req: Request,
    res: Response,
@@ -72,7 +76,7 @@ export const SearchFoods = async (
    const pincode = req.params.pincode;
    const result = await Vendor.find({
       pincode: pincode,
-      serviceAvailable: false,
+      serviceAvailable: true,
    }).populate("foods");
 
    if (result.length > 0) {
@@ -86,6 +90,7 @@ export const SearchFoods = async (
    return res.status(404).json({ msg: "data Not found!" });
 };
 
+// 
 export const RestaurantById = async (
    req: Request,
    res: Response,

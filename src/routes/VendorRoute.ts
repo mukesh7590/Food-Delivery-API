@@ -25,19 +25,15 @@ const router = exprss.Router();
 
 const imageStorage = multer.diskStorage({
    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, '../images/'));
+      cb(null, path.join(__dirname, "../images/"));
    },
    filename: function (req, file, cb) {
       cb(null, new Date().toISOString() + "_" + file.originalname);
    },
 });
 
-
-console.log("imageStorage => ", imageStorage);
-
 const images = multer({ storage: imageStorage }).array("images", 3);
 
-console.log("images aaye hai =>", images);
 // Login route by Admin
 
 router.post("/login", VendorLogin);
@@ -46,11 +42,12 @@ router.use(Authenticate); // this always execute before the 3 lines given below
 
 router.get("/profile", GetVendorProfile);
 router.patch("/profile", UpdateVendorProfile);
-router.patch("/coverimage", images, UpdateVendorCoverImage);
-router.patch("/service", UpdateVendorService);
 
 router.post("/food", images, AddFood);
 router.get("/foods", GetFoods);
+
+router.patch("/coverimage", images, UpdateVendorCoverImage);
+router.patch("/service", UpdateVendorService);
 
 // Orders section
 router.get("/orders", GetCurrentOrders);
@@ -61,9 +58,5 @@ router.get("/order/:id", GetOrderDetails);
 router.get("/offers", GetOffers);
 router.post("/offer", AddOffer);
 router.put("/offer/:id", EditOffer);
-
-// router.get("/", (req: Request, res: Response, next: NextFunction) => {
-//    res.json({ message: "hello Vandor" });
-// });
 
 export { router as VendorRoute };

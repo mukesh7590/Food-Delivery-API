@@ -26,6 +26,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 router.post("/signup", CustomerSignUp);
 router.post("/login", CustomerLogin);
 
+
 /* ------------------- Authentication Need here below--------------------- */
 router.use(Authenticate);
 

@@ -13,16 +13,7 @@ import {
 export default async (app: Application) => {
    app.use(express.json());
 
-   
    app.use(express.urlencoded({ extended: true }));
-
-   // const imagePath = path.join(__dirname, "../images");
-
-   // console.log("image p[ath  =>", imagePath);
-
-   // app.use("/images", express.static(imagePath));
-
-   // console.log(imagePath);
 
    app.use("/admin", AdminRoute);
    app.use("/vendor", VendorRoute);

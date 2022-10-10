@@ -22,10 +22,10 @@ router.get("/foods-in-30-min/:pincode", GetFoodsIn30Min);
 /* ------------------- Search Foods --------------------- */
 router.get("/search/:pincode", SearchFoods);
 
-/* ------------------- Search Offers --------------------- */
-router.get("/offers/:pincode", GetAvailableOffers);
-
 /* ------------------- Find Restaurant by ID --------------------- */
 router.get("/restaurant/:id", RestaurantById);
+
+/* ------------------- Search Offers --------------------- */
+router.get("/offers/:pincode", GetAvailableOffers);
 
 export { router as ShoppingRoute };

@@ -8,7 +8,15 @@ import {
    EditCustomerProfileInput,
    OrderInputs,
 } from "../dto";
-import { Customer, DeliveryUser, Food, Offer, Order, Transaction, Vendor } from "../models";
+import {
+   Customer,
+   DeliveryUser,
+   Food,
+   Offer,
+   Order,
+   Transaction,
+   Vendor,
+} from "../models";
 import {
    GenerateOtp,
    GeneratePassword,
@@ -19,6 +27,7 @@ import {
 } from "../utility";
 import { GetVendorByID } from "./AdminController";
 
+// correct
 export const CustomerSignUp = async (
    req: Request,
    res: Response,
@@ -83,7 +92,7 @@ export const CustomerSignUp = async (
 
    return res.status(400).json({ msg: "Error while creating user" });
 };
-
+// correct
 export const CustomerVerify = async (
    req: Request,
    res: Response,
@@ -120,7 +129,7 @@ export const CustomerVerify = async (
 
    return res.status(400).json({ msg: "Unable to verify Customer" });
 };
-
+// correct
 export const CustomerLogin = async (
    req: Request,
    res: Response,
@@ -137,13 +146,18 @@ export const CustomerLogin = async (
    }
 
    const { email, password } = customerInputs;
+   // console.log("login data ", { email, password });
    const customer = await Customer.findOne({ email: email });
+
+   // console.log("customer => ", customer);
    if (customer) {
       const validation = await ValidatePassword(
          password,
          customer.password,
          customer.salt
       );
+
+      // console.log("validation => ", validation);
 
       if (validation) {
          const signature = GenerateSignature({
@@ -162,14 +176,14 @@ export const CustomerLogin = async (
 
    return res.json({ msg: "Error With Signup" });
 };
-
+// correct
 export const RequestOtp = async (
    req: Request,
    res: Response,
    next: NextFunction
 ) => {
    const customer = req.user;
-   console.log(customer);
+   // console.log(customer);
 
    if (customer) {
       const profile = await Customer.findById(customer._id);

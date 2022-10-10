@@ -5,6 +5,8 @@ import { Food, Order, Offer } from "../models";
 import { GenerateSignature, ValidatePassword } from "../utility";
 import { FindVendor } from "./AdminController";
 
+// ****************** VENDOR SECTION HERE ******************
+
 export const VendorLogin = async (
    req: Request,
    res: Response,
@@ -74,63 +76,11 @@ export const UpdateVendorProfile = async (
    return res.json({ message: "Vendor information is not found" });
 };
 
-export const UpdateVendorService = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-) => {
-   const user = req.user;
-   const { lat, lng } = req.body;
-
-   if (user) {
-      const existingVendor = await FindVendor(user._id);
-
-      if (existingVendor !== null) {
-         existingVendor.serviceAvailable = !existingVendor.serviceAvailable;
-         if (lat && lng) {
-            existingVendor.lat = lat;
-            existingVendor.lng = lng;
-         }
-         const saveResult = await existingVendor.save();
-         return res.json(saveResult);
-      }
-
-      return res.json(existingVendor);
-   }
-   return res.json({ message: "Vendor information is not found" });
-};
-
-export const UpdateVendorCoverImage = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-) => {
-   const user = req.user;
-
-   if (user) {
-      const vendor = await FindVendor(user._id);
-
-      if (vendor !== null) {
-         const files = req.files as [Express.Multer.File];
-
-         const images = files.map((file: Express.Multer.File) => file.filename);
-
-         vendor.coverImages.push(...images);
-
-         const saveResult = await vendor.save();
-
-         return res.json(saveResult);
-      }
-   }
-   return res.json({ message: "Unable to Update vendor profile " });
-};
-
 export const AddFood = async (
    req: Request,
    res: Response,
    next: NextFunction
 ) => {
-   
    const user = req.user;
    if (user) {
       const { name, description, category, foodType, readyTime, price } = <
@@ -184,7 +134,58 @@ export const GetFoods = async (
    return res.json({ message: "Food information not found" });
 };
 
-// Order section here for Vendor
+export const UpdateVendorCoverImage = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const user = req.user;
+
+   if (user) {
+      const vendor = await FindVendor(user._id);
+
+      if (vendor !== null) {
+         const files = req.files as [Express.Multer.File];
+
+         const images = files.map((file: Express.Multer.File) => file.filename);
+
+         vendor.coverImages.push(...images);
+
+         const saveResult = await vendor.save();
+
+         return res.json(saveResult);
+      }
+   }
+   return res.json({ message: "Unable to Update vendor profile " });
+};
+
+export const UpdateVendorService = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const user = req.user;
+   const { lat, lng } = req.body;
+
+   if (user) {
+      const existingVendor = await FindVendor(user._id);
+
+      if (existingVendor !== null) {
+         existingVendor.serviceAvailable = !existingVendor.serviceAvailable;
+         if (lat && lng) {
+            existingVendor.lat = lat;
+            existingVendor.lng = lng;
+         }
+         const saveResult = await existingVendor.save();
+         return res.json(saveResult);
+      }
+
+      return res.json(existingVendor);
+   }
+   return res.json({ message: "Vendor information is not found" });
+};
+
+// ****************** ORDER SECTION IS HERE ******************
 
 export const GetCurrentOrders = async (
    req: Request,
@@ -249,7 +250,7 @@ export const ProcessOrder = async (
    return res.json({ message: "Unable to process order" });
 };
 
-// Offers section here for Vendor
+// ****************** Offers section here for Vendor ******************
 
 export const GetOffers = async (
    req: Request,

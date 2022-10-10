@@ -11,9 +11,3 @@ export default async () => {
    }
 };
 
-// mongoose
-//    .connect(MONGO_URI)
-//    .then((result) => {
-//       console.log("Database connection Established !");
-//    })
-//    .catch((err) => console.log("ERROR => " + err));
